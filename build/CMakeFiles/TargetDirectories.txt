@@ -1,3 +1,4 @@
-C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/SearchLite.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestInvertedIndex.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTextProcessor.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ZERO_CHECK.dir

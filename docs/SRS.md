@@ -270,6 +270,17 @@ machine vision
 
 This functionality will potentially use a Trie.
 
+*FR-14* — Text Normalisation
+
+The system shall normalise document text before indexing by converting alphabetic characters to lowercase and handling punctuation appropriately.
+
+*FR-15* — Tokenisation
+
+The system shall divide normalised document text into individual searchable terms.
+
+*FR-16* — Stop-Word Filtering
+
+The system shall support filtering predefined stop words during document processing.
 
 # 5. Non - Functional Requirements
 
