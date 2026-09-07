@@ -6,6 +6,17 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_executable(SearchLite
+    src/main.cpp
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/DocumentLoader.cpp
+)
+
+target_include_directories(SearchLite PRIVATE
+    include
+)
+
 add_executable(TestInvertedIndex
     src/InvertedIndex.cpp
     tests/test_inverted_index.cpp
@@ -21,5 +32,14 @@ add_executable(TestTextProcessor
 )
 
 target_include_directories(TestTextProcessor PRIVATE
+    include
+)
+
+add_executable(TestDocumentLoader
+    src/DocumentLoader.cpp
+    tests/test_document_loader.cpp
+)
+
+target_include_directories(TestDocumentLoader PRIVATE
     include
 )

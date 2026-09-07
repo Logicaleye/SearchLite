@@ -1,2 +1,4 @@
+C:\Users\as562\Desktop\Searchlite\src\main.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\main.obj
 C:\Users\as562\Desktop\Searchlite\src\InvertedIndex.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\InvertedIndex.obj
-C:\Users\as562\Desktop\Searchlite\tests\test_inverted_index.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\test_inverted_index.obj
+C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\TextProcessor.obj
+C:\Users\as562\Desktop\Searchlite\src\DocumentLoader.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\DocumentLoader.obj

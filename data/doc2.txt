@@ -1,0 +1,2 @@
+Artificial intelligence is used in computer vision.
+Computer vision allows computers to understand images.

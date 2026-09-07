@@ -1,0 +1,2 @@
+Data structures and algorithms are fundamental to computer science.
+Efficient algorithms can solve complex problems.

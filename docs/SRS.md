@@ -282,6 +282,23 @@ The system shall divide normalised document text into individual searchable term
 
 The system shall support filtering predefined stop words during document processing.
 
+*FR-17* — Document Discovery
+
+The system shall discover supported text documents from a configured data directory.
+
+*FR-18* — Document Loading
+
+The system shall read the contents of supported text documents.
+
+*FR-19* — Document Identification
+
+The system shall assign a unique identifier to each loaded document.
+
+*FR-20* — Index Population
+
+The system shall process each loaded document and populate the inverted index with the resulting searchable terms.
+
+
 # 5. Non - Functional Requirements
 
 These describe how well the system should operate rather than what functionality it provides. Typical non-functional requirements include performance, reliability, usability, security and scalability.
@@ -379,3 +396,49 @@ Documents are available locally.
 The initial dataset is sufficiently small for experimentation.
 Users provide text-based queries.
 Search results are generated from the indexed document collection.
+
+# 7. Architecture Diagram
+
+*1* Initial Diagram
+
+Documents
+    │
+    ▼
+Document Loader
+    │
+    ▼
+Text Processor
+    │
+    ├── Normalisation
+    ├── Tokenisation
+    └── Stop-word Filtering
+    │
+    ▼
+Inverted Index
+
+*2* Diagram processing with document loader
+                  ┌─────────────┐
+                  │  .txt Files │
+                  └──────┬──────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ DocumentLoader  │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ TextProcessor   │
+                │                 │
+                │ Normalisation   │
+                │ Tokenisation    │
+                │ Stop Words      │
+                └────────┬────────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │  InvertedIndex  │
+                └────────┬────────┘
+                         │
+                         ▼
+                  Term → Documents
