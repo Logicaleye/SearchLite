@@ -22,11 +22,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6DAB9B97-FDA3-3BF6-A1F4-61CA157ED5E4}</ProjectGuid>
+    <ProjectGuid>{81698804-7459-3203-8546-CFC8A1DD8BAF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
-    <ProjectName>SearchLite</ProjectName>
+    <ProjectName>TestQueryProcessor</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -60,26 +60,26 @@
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\as562\Desktop\Searchlite\build\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SearchLite.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SearchLite</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TestQueryProcessor.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TestQueryProcessor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\as562\Desktop\Searchlite\build\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SearchLite.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SearchLite</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TestQueryProcessor.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TestQueryProcessor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\as562\Desktop\Searchlite\build\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SearchLite.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SearchLite</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">TestQueryProcessor.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">TestQueryProcessor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\as562\Desktop\Searchlite\build\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SearchLite.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SearchLite</TargetName>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">TestQueryProcessor.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">TestQueryProcessor</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
@@ -129,9 +129,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/Debug/SearchLite.lib</ImportLibrary>
+      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/Debug/TestQueryProcessor.lib</ImportLibrary>
       <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/Debug/SearchLite.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/Debug/TestQueryProcessor.pdb</ProgramDataBaseFile>
       <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -185,9 +185,9 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/Release/SearchLite.lib</ImportLibrary>
+      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/Release/TestQueryProcessor.lib</ImportLibrary>
       <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/Release/SearchLite.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/Release/TestQueryProcessor.pdb</ProgramDataBaseFile>
       <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -241,9 +241,9 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/MinSizeRel/SearchLite.lib</ImportLibrary>
+      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/MinSizeRel/TestQueryProcessor.lib</ImportLibrary>
       <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/MinSizeRel/SearchLite.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/MinSizeRel/TestQueryProcessor.pdb</ProgramDataBaseFile>
       <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -296,9 +296,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
-      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/RelWithDebInfo/SearchLite.lib</ImportLibrary>
+      <ImportLibrary>C:/Users/as562/Desktop/Searchlite/build/RelWithDebInfo/TestQueryProcessor.lib</ImportLibrary>
       <LinkErrorReporting></LinkErrorReporting>
-      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/RelWithDebInfo/SearchLite.pdb</ProgramDataBaseFile>
+      <ProgramDataBaseFile>C:/Users/as562/Desktop/Searchlite/build/RelWithDebInfo/TestQueryProcessor.pdb</ProgramDataBaseFile>
       <RandomizedBaseAddress></RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
     </Link>
@@ -364,11 +364,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\main.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\InvertedIndex.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp" />
-    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\DocumentLoader.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp" />
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\tests\test_query_processor.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

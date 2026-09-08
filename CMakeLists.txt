@@ -11,6 +11,7 @@ add_executable(SearchLite
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/DocumentLoader.cpp
+    src/QueryProcessor.cpp
 )
 
 target_include_directories(SearchLite PRIVATE
@@ -35,11 +36,24 @@ target_include_directories(TestTextProcessor PRIVATE
     include
 )
 
+# Document Loader Tests
 add_executable(TestDocumentLoader
     src/DocumentLoader.cpp
     tests/test_document_loader.cpp
 )
 
 target_include_directories(TestDocumentLoader PRIVATE
+    include
+)
+
+# Query Processor Tests
+add_executable(TestQueryProcessor
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    tests/test_query_processor.cpp
+)
+
+target_include_directories(TestQueryProcessor PRIVATE
     include
 )

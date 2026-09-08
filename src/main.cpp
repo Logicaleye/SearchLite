@@ -1,63 +1,77 @@
 #include "DocumentLoader.h"
 #include "InvertedIndex.h"
+#include "QueryProcessor.h"
 #include "TextProcessor.h"
 
 #include <iostream>
+#include <string>
 
 int main() {
 
     DocumentLoader loader;
-    TextProcessor processor;
+    TextProcessor textProcessor;
     InvertedIndex index;
 
-    // Step 1: Load documents
-    auto documents = loader.loadDocuments("data");
+    // Load documents
+    auto documents =
+        loader.loadDocuments("data");
 
     std::cout << "Documents loaded: "
-              << documents.size() << "\n\n";
+              << documents.size()
+              << "\n\n";
 
-    // Step 2: Process each document
+    // Build index
     for (const auto& document : documents) {
 
         std::string content =
             loader.readDocument(document);
 
         auto tokens =
-            processor.process(content);
+            textProcessor.process(content);
 
-        // Step 3: Add terms to inverted index
         for (const auto& token : tokens) {
             index.add(token, document.id);
         }
-
-        std::cout << "Indexed Document "
-                  << document.id
-                  << ": "
-                  << document.path
-                  << "\n";
     }
 
-    // Step 4: Display index statistics
-    std::cout << "\nUnique terms indexed: "
+    std::cout << "Unique terms indexed: "
               << index.size()
-              << "\n";
+              << "\n\n";
 
-    // Step 5: Test a search
-    std::string query = "machine";
+    // Create query processor
+    QueryProcessor queryProcessor(
+        index,
+        textProcessor
+    );
 
-    auto results = index.search(query);
+    // Search loop
+    while (true) {
 
-    std::cout << "\nSearch: "
-              << query
-              << "\n";
+        std::cout << "Search> ";
 
-    std::cout << "Documents: ";
+        std::string query;
+        std::getline(std::cin, query);
 
-    for (int documentId : results) {
-        std::cout << documentId << " ";
+        if (query == "exit") {
+            break;
+        }
+
+        auto results =
+            queryProcessor.search(query);
+
+        if (results.empty()) {
+            std::cout << "No documents found.\n\n";
+            continue;
+        }
+
+        std::cout << "Documents found: ";
+
+        for (int documentId : results) {
+            std::cout << documentId << " ";
+        }
+
+        std::cout << "\n\n";
     }
-
-    std::cout << "\n";
 
     return 0;
 }

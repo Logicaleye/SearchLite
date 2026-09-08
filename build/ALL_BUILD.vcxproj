@@ -186,6 +186,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{96115060-99B3-3A89-9DED-2A4188F7E275}</Project>
       <Name>TestInvertedIndex</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestQueryProcessor.vcxproj">
+      <Project>{81698804-7459-3203-8546-CFC8A1DD8BAF}</Project>
+      <Name>TestQueryProcessor</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestTextProcessor.vcxproj">
       <Project>{FC12E33B-3D0F-38E4-918D-BD44C8929512}</Project>
       <Name>TestTextProcessor</Name>
