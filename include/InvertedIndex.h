@@ -4,18 +4,27 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-using namespace std;
-class InvertedIndex{
-    private:
-        unordered_map<string, vector<int>> index;
 
-    public:
-        void add(const string& term, int documentId);
+class InvertedIndex {
+private:
+    // term -> document ID -> frequency
+    std::unordered_map<
+        std::string,
+        std::unordered_map<int, int>
+    > index;
 
-        vector<int> search(const string& term) const;
+public:
+    void add(const std::string& term, int documentId);
 
-        bool contains(const string& term) const;
+    std::vector<int> search(const std::string& term) const;
 
-        size_t size() const;
+    bool contains(const std::string& term) const;
+
+    std::size_t size() const;
+
+    const std::unordered_map<int, int>& getPostings(
+        const std::string& term
+    ) const;
 };
+
 #endif

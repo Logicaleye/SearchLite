@@ -3,5 +3,8 @@ C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestInvertedIndex.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTextProcessor.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestDocumentLoader.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestQueryProcessor.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestRanker.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTrie.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTrieIntegration.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ZERO_CHECK.dir

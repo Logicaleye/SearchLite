@@ -3,3 +3,5 @@ C:\Users\as562\Desktop\Searchlite\src\InvertedIndex.cpp;C:\Users\as562\Desktop\S
 C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\TextProcessor.obj
 C:\Users\as562\Desktop\Searchlite\src\DocumentLoader.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\DocumentLoader.obj
 C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\QueryProcessor.obj
+C:\Users\as562\Desktop\Searchlite\src\Ranker.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\Ranker.obj
+C:\Users\as562\Desktop\Searchlite\src\Trie.cpp;C:\Users\as562\Desktop\Searchlite\build\SearchLite.dir\Debug\Trie.obj

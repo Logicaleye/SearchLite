@@ -223,30 +223,23 @@ The system shall process the user's query using the same or compatible text-proc
 
 The system shall retrieve documents associated with the terms contained in the user's query.
 
-*FR-09* — Relevance Scoring
+*FR-09* - Relevance Scoring
 
-The system shall calculate a relevance score for candidate documents.
-The initial implementation may use a simple term-frequency-based approach.
-A later version may implement TF-IDF.
+The system shall calculate a relevance score for matching documents using Term Frequency (TF).
 
-*FR-10* — Result Ranking
+The score shall represent the combined frequency of the query terms within the document.
 
-The system shall rank matching documents according to their calculated relevance scores.
-Higher-scoring documents should appear before lower-scoring documents.
+*FR-10* - Result Ranking
 
-*FR-11* — Top-K Results
+The system shall rank matching documents in descending order of relevance score.
 
-The system should support returning the top K most relevant results.
-Example:
-Query: machine learning
-K = 5
+If two documents have equal scores, the document with the smaller document ID shall be ranked first.
 
-Results:
-1. Document 14
-2. Document 7
-3. Document 21
-4. Document 3
-5. Document 19
+*FR-11* - Top-K Results
+
+The system shall support limiting the number of returned search results to the top K most relevant documents.
+
+This requirement is planned for a future implementation.
 
 *FR-12* — No-Result Handling
 
@@ -397,7 +390,82 @@ The initial dataset is sufficiently small for experimentation.
 Users provide text-based queries.
 Search results are generated from the indexed document collection.
 
-# 7. Architecture Diagram
+
+# 7. Search and Ranking
+
+### 7.1 Query Processing
+
+SearchLite processes user queries using the same text-processing pipeline used during document indexing.
+
+The query is:
+
+1. Normalised
+2. Tokenised
+3. Stop words are removed
+4. Remaining terms are searched in the inverted index
+
+SearchLite currently uses AND semantics for multi-term queries. Therefore, a document must contain all query terms to be considered a valid result.
+
+For example:
+
+`machine learning`
+
+returns only documents containing both `machine` and `learning`.
+
+### 7.2 Term Frequency Ranking
+
+SearchLite currently uses Term Frequency (TF) as its initial relevance-ranking algorithm.
+
+Term Frequency represents the number of times a query term occurs within a document.
+
+For a query containing multiple terms, the document score is calculated as:
+
+Score(d, q) = Σ TF(t, d)
+
+where:
+
+- d = document
+- q = query
+- t = query term
+- TF(t, d) = frequency of term t in document d
+
+For example, if a document contains:
+
+- `machine` → 3 occurrences
+- `learning` → 2 occurrences
+
+for the query:
+
+`machine learning`
+
+then:
+
+Score = 3 + 2 = 5
+
+Documents are ranked in descending order of score.
+
+### 7.3 Tie Breaking
+
+If two documents have the same relevance score, the document with the smaller document ID is ranked first.
+
+This provides deterministic and reproducible search results.
+
+### 7.4 Current Ranking Limitations
+
+The current ranking implementation is intentionally simple and uses raw term frequency.
+
+It does not currently account for:
+
+- How common a term is across the entire document collection
+- Document length
+- Term importance
+- Phrase proximity
+- Semantic similarity
+
+A future version will introduce TF-IDF-based ranking to improve relevance.
+
+
+#  Architecture Diagram
 
 *1* Initial Diagram
 
@@ -442,3 +510,58 @@ Inverted Index
                          │
                          ▼
                   Term → Documents
+
+*3* Information-retrieval architecture, rather than simply an inverted-index demonstration.
+
+                    ┌──────────────┐
+                    │    .txt      │
+                    │  Documents   │
+                    └──────┬───────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ DocumentLoader  │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ TextProcessor   │
+                  │                 │
+                  │ Normalize       │
+                  │ Tokenize        │
+                  │ Stop Words      │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Inverted Index  │
+                  │                 │
+                  │ term            │
+                  │   ↓             │
+                  │ document        │
+                  │   ↓             │
+                  │ frequency       │
+                  └────────┬────────┘
+                           │
+                           │
+User Query ────────────────┤
+                           ▼
+                  ┌─────────────────┐
+                  │ QueryProcessor  │
+                  │                 │
+                  │ AND Matching    │
+                  └────────┬────────┘
+                           │
+                    Matching Docs
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │     Ranker      │
+                  │                 │
+                  │   TF Scoring    │
+                  └────────┬────────┘
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │ Ranked Results  │
+                  └─────────────────┘

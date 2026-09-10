@@ -12,6 +12,8 @@ add_executable(SearchLite
     src/TextProcessor.cpp
     src/DocumentLoader.cpp
     src/QueryProcessor.cpp
+    src/Ranker.cpp
+    src/Trie.cpp
 )
 
 target_include_directories(SearchLite PRIVATE
@@ -55,5 +57,39 @@ add_executable(TestQueryProcessor
 )
 
 target_include_directories(TestQueryProcessor PRIVATE
+    include
+)
+
+# Ranker Tests
+add_executable(TestRanker
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    src/Ranker.cpp
+    tests/test_ranker.cpp
+)
+
+target_include_directories(TestRanker PRIVATE
+    include
+)
+
+# Trie Tests
+add_executable(TestTrie
+    src/Trie.cpp
+    tests/test_trie.cpp
+)
+
+target_include_directories(TestTrie PRIVATE
+    include
+)
+
+# Trie Integration Tests
+add_executable(TestTrieIntegration
+    src/Trie.cpp
+    src/TextProcessor.cpp
+    tests/test_trie_integration.cpp
+)
+
+target_include_directories(TestTrieIntegration PRIVATE
     include
 )

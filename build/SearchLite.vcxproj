@@ -369,6 +369,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\DocumentLoader.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp" />
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\Ranker.cpp" />
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\Trie.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -16,6 +16,12 @@
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\Ranker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\Trie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\as562\Desktop\Searchlite\CMakeLists.txt" />

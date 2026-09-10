@@ -1,30 +1,53 @@
 #include "InvertedIndex.h"
-
-using namespace std;
-
-void InvertedIndex::add(const string& term, int documentId) {
-    auto& documents = index[term];
-
-    // Prevent duplicate document IDs for the same term
-    if (documents.empty() || documents.back() != documentId) {
-        documents.push_back(documentId);
-    }
+#include <algorithm>
+void InvertedIndex::add(
+    const std::string& term,
+    int documentId
+) {
+    index[term][documentId]++;
 }
 
-vector<int> InvertedIndex::search(const string& term) const {
+std::vector<int> InvertedIndex::search(
+    const std::string& term
+) const {
     auto it = index.find(term);
 
     if (it == index.end()) {
         return {};
     }
 
-    return it->second;
+    std::vector<int> documents;
+
+    for (const auto& [documentId, frequency] : it->second) {
+        documents.push_back(documentId);
+    }
+
+    std::sort(documents.begin(), documents.end());
+
+    return documents;
 }
 
-bool InvertedIndex::contains(const string& term) const {
+bool InvertedIndex::contains(
+    const std::string& term
+) const {
     return index.find(term) != index.end();
 }
 
-size_t InvertedIndex::size() const {
+std::size_t InvertedIndex::size() const {
     return index.size();
+}
+
+const std::unordered_map<int, int>&
+InvertedIndex::getPostings(
+    const std::string& term
+) const {
+    static const std::unordered_map<int, int> emptyPostings;
+
+    auto it = index.find(term);
+
+    if (it == index.end()) {
+        return emptyPostings;
+    }
+
+    return it->second;
 }

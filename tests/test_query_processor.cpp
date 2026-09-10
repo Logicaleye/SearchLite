@@ -50,7 +50,8 @@ int main() {
     auto machineVisionResults =
         processor.search("machine vision");
 
-    assert(machineVisionResults.empty());
+    assert(machineVisionResults.size() == 1);
+    assert(machineVisionResults[0] == 2);
 
     // Test 4: Unknown term
     auto unknownResults =

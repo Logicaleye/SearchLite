@@ -190,9 +190,21 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{81698804-7459-3203-8546-CFC8A1DD8BAF}</Project>
       <Name>TestQueryProcessor</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestRanker.vcxproj">
+      <Project>{46E5794A-3473-3C97-B799-7DA4FBEBF65F}</Project>
+      <Name>TestRanker</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestTextProcessor.vcxproj">
       <Project>{FC12E33B-3D0F-38E4-918D-BD44C8929512}</Project>
       <Name>TestTextProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestTrie.vcxproj">
+      <Project>{26576DCA-0DAC-3C3C-81D0-3BE34B71A1C8}</Project>
+      <Name>TestTrie</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestTrieIntegration.vcxproj">
+      <Project>{46FCCA13-3ECF-32DB-A376-1560E7294A8A}</Project>
+      <Name>TestTrieIntegration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
