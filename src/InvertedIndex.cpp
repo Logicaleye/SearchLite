@@ -1,10 +1,22 @@
 #include "InvertedIndex.h"
+
 #include <algorithm>
+
 void InvertedIndex::add(
     const std::string& term,
     int documentId
 ) {
     index[term][documentId]++;
+}
+
+void InvertedIndex::add(
+    const std::string& term,
+    int documentId,
+    int position
+) {
+    index[term][documentId]++;
+
+    positions[term][documentId].push_back(position);
 }
 
 std::vector<int> InvertedIndex::search(
@@ -22,7 +34,10 @@ std::vector<int> InvertedIndex::search(
         documents.push_back(documentId);
     }
 
-    std::sort(documents.begin(), documents.end());
+    std::sort(
+        documents.begin(),
+        documents.end()
+    );
 
     return documents;
 }
@@ -47,6 +62,24 @@ InvertedIndex::getPostings(
 
     if (it == index.end()) {
         return emptyPostings;
+    }
+
+    return it->second;
+}
+
+const std::unordered_map<int, std::vector<int>>&
+InvertedIndex::getPositions(
+    const std::string& term
+) const {
+    static const std::unordered_map<
+        int,
+        std::vector<int>
+    > emptyPositions;
+
+    auto it = positions.find(term);
+
+    if (it == positions.end()) {
+        return emptyPositions;
     }
 
     return it->second;

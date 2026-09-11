@@ -21,6 +21,10 @@ public:
     std::vector<int> search(
         const std::string& query
     ) const;
+
+    std::vector<int> searchPhrase(
+        const std::string& phrase
+    ) const;
 };
 
 #endif

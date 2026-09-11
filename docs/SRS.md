@@ -291,6 +291,13 @@ The system shall assign a unique identifier to each loaded document.
 
 The system shall process each loaded document and populate the inverted index with the resulting searchable terms.
 
+*FR-25* - Phrase Search
+
+The system shall support exact phrase queries enclosed in quotation marks.
+
+The phrase search mechanism shall verify that query terms occur consecutively and in the specified order within a document.
+
+The system shall use positional information maintained by the inverted index to perform phrase matching.
 
 # 5. Non - Functional Requirements
 
@@ -464,104 +471,21 @@ It does not currently account for:
 
 A future version will introduce TF-IDF-based ranking to improve relevance.
 
+# 8. Techinical design
+Positional Inverted Index
 
-#  Architecture Diagram
+SearchLite maintains positional information for indexed terms.
 
-*1* Initial Diagram
+The index stores:
 
-Documents
-    │
-    ▼
-Document Loader
-    │
-    ▼
-Text Processor
-    │
-    ├── Normalisation
-    ├── Tokenisation
-    └── Stop-word Filtering
-    │
-    ▼
-Inverted Index
+Term → Document → Positions
 
-*2* Diagram processing with document loader
-                  ┌─────────────┐
-                  │  .txt Files │
-                  └──────┬──────┘
-                         │
-                         ▼
-                ┌─────────────────┐
-                │ DocumentLoader  │
-                └────────┬────────┘
-                         │
-                         ▼
-                ┌─────────────────┐
-                │ TextProcessor   │
-                │                 │
-                │ Normalisation   │
-                │ Tokenisation    │
-                │ Stop Words      │
-                └────────┬────────┘
-                         │
-                         ▼
-                ┌─────────────────┐
-                │  InvertedIndex  │
-                └────────┬────────┘
-                         │
-                         ▼
-                  Term → Documents
+This enables the system to determine whether multiple query terms occur consecutively and in the correct order.
 
-*3* Information-retrieval architecture, rather than simply an inverted-index demonstration.
+Example:
 
-                    ┌──────────────┐
-                    │    .txt      │
-                    │  Documents   │
-                    └──────┬───────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ DocumentLoader  │
-                  └────────┬────────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ TextProcessor   │
-                  │                 │
-                  │ Normalize       │
-                  │ Tokenize        │
-                  │ Stop Words      │
-                  └────────┬────────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ Inverted Index  │
-                  │                 │
-                  │ term            │
-                  │   ↓             │
-                  │ document        │
-                  │   ↓             │
-                  │ frequency       │
-                  └────────┬────────┘
-                           │
-                           │
-User Query ────────────────┤
-                           ▼
-                  ┌─────────────────┐
-                  │ QueryProcessor  │
-                  │                 │
-                  │ AND Matching    │
-                  └────────┬────────┘
-                           │
-                    Matching Docs
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │     Ranker      │
-                  │                 │
-                  │   TF Scoring    │
-                  └────────┬────────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │ Ranked Results  │
-                  └─────────────────┘
+machine → Document 1 → [0, 3]
+
+learning → Document 1 → [1, 4]
+
+Therefore, "machine learning" occurs at positions 0–1 and 3–4.

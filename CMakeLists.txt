@@ -93,3 +93,15 @@ add_executable(TestTrieIntegration
 target_include_directories(TestTrieIntegration PRIVATE
     include
 )
+
+# Phrase Search Tests
+add_executable(TestPhraseSearch
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    tests/test_phrase_search.cpp
+)
+
+target_include_directories(TestPhraseSearch PRIVATE
+    include
+)
