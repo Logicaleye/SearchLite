@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 class InvertedIndex {
 private:
@@ -18,6 +19,9 @@ private:
         std::string,
         std::unordered_map<int, std::vector<int>>
     > positions;
+
+    // All document IDs in the index
+    std::set<int> documents;
 
 public:
     // Add a term without position information
@@ -51,6 +55,8 @@ public:
     getPositions(
         const std::string& term
     ) const;
+
+    std::vector<int> getAllDocuments() const;
 };
 
 #endif

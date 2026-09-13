@@ -66,6 +66,14 @@ int main() {
 
     assert(duplicateResults.size() == 2);
 
+    auto allDocuments =
+    index.getAllDocuments();
+
+    assert(allDocuments.size() == 3);
+    assert(allDocuments[0] == 1);
+    assert(allDocuments[1] == 2);
+    assert(allDocuments[2] == 3);
+
     cout << "\nAll tests passed!\n";
 
     return 0;

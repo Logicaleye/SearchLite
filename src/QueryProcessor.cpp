@@ -2,6 +2,63 @@
 
 #include <algorithm>
 #include <iterator>
+#include <cctype>
+
+namespace {
+
+std::vector<int> setAnd(
+    const std::vector<int>& left,
+    const std::vector<int>& right
+) {
+    std::vector<int> result;
+
+    std::set_intersection(
+        left.begin(),
+        left.end(),
+        right.begin(),
+        right.end(),
+        std::back_inserter(result)
+    );
+
+    return result;
+}
+
+std::vector<int> setOr(
+    const std::vector<int>& left,
+    const std::vector<int>& right
+) {
+    std::vector<int> result;
+
+    std::set_union(
+        left.begin(),
+        left.end(),
+        right.begin(),
+        right.end(),
+        std::back_inserter(result)
+    );
+
+    return result;
+}
+
+std::vector<int> setNot(
+    const std::vector<int>& allDocuments,
+    const std::vector<int>& excluded
+) {
+    std::vector<int> result;
+
+    std::set_difference(
+        allDocuments.begin(),
+        allDocuments.end(),
+        excluded.begin(),
+        excluded.end(),
+        std::back_inserter(result)
+    );
+
+    return result;
+}
+
+}
+
 QueryProcessor::QueryProcessor(
     const InvertedIndex& index,
     const TextProcessor& textProcessor
@@ -136,4 +193,96 @@ std::vector<int> QueryProcessor::searchPhrase(
     }
 
     return results;
+}
+
+std::vector<int> QueryProcessor::searchBoolean(
+    const std::string& query
+) const {
+
+    std::vector<std::string> tokens;
+
+    std::string current;
+
+    for (char ch : query) {
+
+        if (std::isspace(
+                static_cast<unsigned char>(ch))) {
+
+            if (!current.empty()) {
+                tokens.push_back(current);
+                current.clear();
+            }
+
+        } else {
+            current += ch;
+        }
+    }
+
+    if (!current.empty()) {
+        tokens.push_back(current);
+    }
+
+    // We currently support:
+    //
+    // term AND term
+    // term OR term
+    // term NOT term
+
+    if (tokens.size() != 3) {
+        return {};
+    }
+
+    std::string leftTerm =
+        tokens[0];
+
+    std::string operation =
+        tokens[1];
+
+    std::string rightTerm =
+        tokens[2];
+
+    // Process individual terms.
+    auto leftTerms =
+        textProcessor.process(leftTerm);
+
+    auto rightTerms =
+        textProcessor.process(rightTerm);
+
+    if (leftTerms.size() != 1 ||
+        rightTerms.size() != 1) {
+
+        return {};
+    }
+
+    auto leftDocuments =
+        index.search(leftTerms[0]);
+
+    auto rightDocuments =
+        index.search(rightTerms[0]);
+
+    if (operation == "AND") {
+
+        return setAnd(
+            leftDocuments,
+            rightDocuments
+        );
+    }
+
+    if (operation == "OR") {
+
+        return setOr(
+            leftDocuments,
+            rightDocuments
+        );
+    }
+
+    if (operation == "NOT") {
+
+        return setNot(
+            leftDocuments,
+            rightDocuments
+        );
+    }
+
+    return {};
 }

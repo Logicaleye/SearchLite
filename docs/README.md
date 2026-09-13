@@ -9,7 +9,7 @@
 
 # 1. Introduction
 
-1.1 **Purpose**
+### 1.1 Purpose
 
 SearchLite is a lightweight search engine designed to efficiently search and retrieve relevant documents from a predefined collection of text-based documents.
 
@@ -29,7 +29,7 @@ Caching
 
 The project will initially operate on a local document collection and may later be exposed through an API and web interface.
 
-1.2 **Project Scope**
+### 1.2 Project Scope
 
 The initial version of SearchLite will:
 
@@ -481,6 +481,21 @@ will match a document containing:
 machine learning algorithms
 but will not match a document containing:
 machine algorithms learning
+
+### Boolean Search
+
+SearchLite supports basic Boolean queries using:
+
+- `AND` — documents must contain both terms
+- `OR` — documents containing either term
+- `NOT` — documents containing the first term while excluding documents containing the second term
+
+Examples:
+
+```text
+machine AND learning
+machine OR computer
+machine NOT learning
 
 
 #  Architecture Diagram

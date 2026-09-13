@@ -90,20 +90,17 @@ int main() {
     continue;
 }
 
-        auto results =
-            ranker.rank(query);
-        //query phrase one
-            if (query.size() >= 2 &&
-    query.front() == '"' &&
-    query.back() == '"') {
+bool isBooleanQuery =
+    query.find(" AND ") != std::string::npos ||
+    query.find(" OR ") != std::string::npos ||
+    query.find(" NOT ") != std::string::npos;
 
-    std::string phrase =
-        query.substr(1, query.size() - 2);
+if (isBooleanQuery) {
 
-    auto phraseResults =
-        queryProcessor.searchPhrase(phrase);
+    auto booleanResults =
+        queryProcessor.searchBoolean(query);
 
-    if (phraseResults.empty()) {
+    if (booleanResults.empty()) {
         std::cout
             << "No documents found.\n\n";
 
@@ -111,9 +108,9 @@ int main() {
     }
 
     std::cout
-        << "Phrase matches:\n";
+        << "Boolean matches:\n";
 
-    for (int documentId : phraseResults) {
+    for (int documentId : booleanResults) {
         std::cout
             << "Document ID: "
             << documentId
@@ -125,14 +122,18 @@ int main() {
     continue;
 }
 
-        if (results.empty()) {
-            std::cout << "No documents found.\n\n";
-            continue;
-        }
+auto results = ranker.rank(query);
 
-        std::cout << "Documents found: ";
+if (results.empty()) {
+    std::cout
+        << "No documents found.\n\n";
 
-        for (const auto& result : results) {
+    continue;
+}
+
+std::cout << "Documents found: ";
+
+for (const auto& result : results) {
     std::cout
         << "Document ID: "
         << result.documentId
@@ -141,7 +142,7 @@ int main() {
         << '\n';
 }
 
-        std::cout << "\n\n";
+std::cout << "\n\n";
     }
 
     return 0;

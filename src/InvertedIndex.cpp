@@ -7,6 +7,7 @@ void InvertedIndex::add(
     int documentId
 ) {
     index[term][documentId]++;
+    documents.insert(documentId);
 }
 
 void InvertedIndex::add(
@@ -17,6 +18,8 @@ void InvertedIndex::add(
     index[term][documentId]++;
 
     positions[term][documentId].push_back(position);
+
+    documents.insert(documentId);
 }
 
 std::vector<int> InvertedIndex::search(
@@ -83,4 +86,11 @@ InvertedIndex::getPositions(
     }
 
     return it->second;
+}
+
+std::vector<int> InvertedIndex::getAllDocuments() const {
+    return std::vector<int>(
+        documents.begin(),
+        documents.end()
+    );
 }

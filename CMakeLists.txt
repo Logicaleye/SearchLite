@@ -105,3 +105,15 @@ add_executable(TestPhraseSearch
 target_include_directories(TestPhraseSearch PRIVATE
     include
 )
+
+# Boolean Search Tests
+add_executable(TestBooleanSearch
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    tests/test_boolean_search.cpp
+)
+
+target_include_directories(TestBooleanSearch PRIVATE
+    include
+)
