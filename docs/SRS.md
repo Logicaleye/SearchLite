@@ -489,3 +489,19 @@ machine → Document 1 → [0, 3]
 learning → Document 1 → [1, 4]
 
 Therefore, "machine learning" occurs at positions 0–1 and 3–4.
+
+# 9. TF-IDF Relevance Ranking
+
+The system shall rank normal search results using TF-IDF scoring.
+
+For each query term, the system shall consider:
+
+- Term frequency within the document.
+- Document frequency across the indexed collection.
+- Total number of indexed documents.
+
+The final relevance score shall be calculated as the sum of the
+TF-IDF contributions of the query terms.
+
+Documents shall be ordered by descending relevance score, with
+document ID used as a deterministic tie-breaker.

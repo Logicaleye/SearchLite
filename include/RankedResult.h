@@ -3,7 +3,7 @@
 
 struct RankedResult {
     int documentId;
-    int score;
+    double score;
 };
 
 #endif

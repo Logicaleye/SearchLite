@@ -1,7 +1,34 @@
 #include "Ranker.h"
 
 #include <algorithm>
+#include <cmath>
 #include <unordered_map>
+
+double calculateIDF(
+    const InvertedIndex& index,
+    const std::string& term
+) {
+    const auto& postings =
+        index.getPostings(term);
+
+    if (postings.empty()) {
+        return 0.0;
+    }
+
+    double totalDocuments =
+        static_cast<double>(
+            index.getAllDocuments().size()
+        );
+
+    double documentFrequency =
+        static_cast<double>(
+            postings.size()
+        );
+
+    return std::log(
+        totalDocuments / documentFrequency
+    );
+}
 
 Ranker::Ranker(
     const InvertedIndex& index,
@@ -33,25 +60,30 @@ std::vector<RankedResult> Ranker::rank(
     }
 
     // Store score for each matching document.
-    std::unordered_map<int, int> scores;
+    std::unordered_map<int, double> scores;
 
     for (int documentId : matchingDocuments) {
         scores[documentId] = 0;
     }
 
-    // Calculate TF score only for matching documents.
+    // Calculate TF-IDF score only for matching documents.
     for (const std::string& term : terms) {
 
-        const auto& postings =
-            index.getPostings(term);
+    const auto& postings =
+        index.getPostings(term);
 
-        for (const auto& [documentId, frequency] : postings) {
+    double idf =
+        calculateIDF(index, term);
 
-            if (scores.find(documentId) != scores.end()) {
-                scores[documentId] += frequency;
-            }
+    for (const auto& [documentId, frequency] : postings) {
+
+        if (scores.find(documentId) != scores.end()) {
+
+            scores[documentId] +=
+                frequency * idf;
         }
     }
+}
 
     std::vector<RankedResult> results;
 

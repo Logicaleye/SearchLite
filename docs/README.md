@@ -482,6 +482,7 @@ machine learning algorithms
 but will not match a document containing:
 machine algorithms learning
 
+
 ### Boolean Search
 
 SearchLite supports basic Boolean queries using:
@@ -492,13 +493,34 @@ SearchLite supports basic Boolean queries using:
 
 Examples:
 
-```text
+text
 machine AND learning
 machine OR computer
 machine NOT learning
 
 
-#  Architecture Diagram
+### TF-IDF Ranking
+
+SearchLite ranks normal search results using Term Frequency-Inverse
+Document Frequency (TF-IDF).
+
+The score for a document is calculated as:
+
+Score(d, q) = Σ TF(t, d) × IDF(t)
+
+where:
+
+IDF(t) = log(N / DF(t))
+
+- TF represents how frequently a query term occurs in a document.
+- DF represents the number of documents containing the term.
+- N represents the total number of indexed documents.
+
+This gives greater importance to terms that are frequent within a
+document but relatively rare across the overall document collection.
+
+
+# 8. Architecture Diagram
 
 ### *1* Initial Diagram
 
@@ -599,4 +621,33 @@ User Query ────────────────┤
                   │ Ranked Results  │
                   └─────────────────┘
 
+### *4* SearchLite after Day 10:
 
+                    SearchLite
+                        │
+              ┌─────────┴─────────┐
+              │                   │
+        Text Processing       Document Loading
+              │
+              ↓
+       Positional Inverted
+             Index
+              │
+              ↓
+        Query Processing
+              │
+      ┌───────┼────────┐
+      ↓       ↓        ↓
+   Normal   Phrase   Boolean
+    Search   Search   Search
+      │       │        │
+      └───────┼────────┘
+              ↓
+           Ranking
+              │
+              ↓
+           Results
+
+          + Trie
+             ↓
+        Autocomplete
