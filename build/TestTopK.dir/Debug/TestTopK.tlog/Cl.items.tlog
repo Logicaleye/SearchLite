@@ -1,5 +1,7 @@
 C:\Users\as562\Desktop\Searchlite\src\InvertedIndex.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\InvertedIndex.obj
 C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\TextProcessor.obj
 C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\QueryProcessor.obj
+C:\Users\as562\Desktop\Searchlite\src\BooleanParser.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\BooleanParser.obj
+C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\BooleanEvaluator.obj
 C:\Users\as562\Desktop\Searchlite\src\Ranker.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\Ranker.obj
 C:\Users\as562\Desktop\Searchlite\tests\test_top_k.cpp;C:\Users\as562\Desktop\Searchlite\build\TestTopK.dir\Debug\test_top_k.obj

@@ -299,6 +299,57 @@ The phrase search mechanism shall verify that query terms occur consecutively an
 
 The system shall use positional information maintained by the inverted index to perform phrase matching.
 
+*FR-26* - Boolean Search
+
+The system shall support Boolean queries using the `AND`, `OR`, and
+`NOT` operators.
+
+The `AND` operator shall return documents satisfying both operands.
+
+The `OR` operator shall return documents satisfying at least one
+operand.
+
+The unary `NOT` operator shall return the complement of its operand
+within the indexed document collection.
+
+The binary `NOT` form shall support queries such as:
+
+machine NOT learning
+
+which shall return documents containing `machine` while excluding
+documents containing `learning`.
+
+The system shall support nested Boolean expressions using parentheses.
+
+The system shall evaluate Boolean operators according to the following
+precedence:
+
+1. NOT
+2. AND
+3. OR
+
+Boolean operators shall be case-insensitive.
+
+Boolean query terms shall undergo the same text normalisation process
+used during document indexing.
+
+*FR-27* - Top-K Retrieval
+
+The system shall support returning the top K ranked documents for a
+search query.
+
+The system shall maintain at most K candidate results during the
+Top-K selection process.
+
+The system shall use a priority queue or equivalent heap-based
+data structure for efficient Top-K selection.
+
+The final results shall be ordered by descending relevance score.
+
+For equal relevance scores, documents with smaller document IDs shall
+be ranked first.
+
+
 # 5. Non - Functional Requirements
 
 These describe how well the system should operate rather than what functionality it provides. Typical non-functional requirements include performance, reliability, usability, security and scalability.

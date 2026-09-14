@@ -4,6 +4,7 @@
 #include "TextProcessor.h"
 #include "Ranker.h"
 #include "Trie.h"
+#include "BooleanParser.h"
 #include <iostream>
 #include <string>
 
@@ -90,27 +91,22 @@ int main() {
     continue;
 }
 
-bool isBooleanQuery =
-    query.find(" AND ") != std::string::npos ||
-    query.find(" OR ") != std::string::npos ||
-    query.find(" NOT ") != std::string::npos;
+BooleanParser booleanParser;
 
-if (isBooleanQuery) {
+if (booleanParser.isBooleanQuery(query)) {
 
     auto booleanResults =
         queryProcessor.searchBoolean(query);
 
     if (booleanResults.empty()) {
-        std::cout
-            << "No documents found.\n\n";
-
+        std::cout << "No documents found.\n\n";
         continue;
     }
 
-    std::cout
-        << "Boolean matches:\n";
+    std::cout << "Boolean matches:\n";
 
     for (int documentId : booleanResults) {
+
         std::cout
             << "Document ID: "
             << documentId

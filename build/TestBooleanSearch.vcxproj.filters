@@ -10,6 +10,12 @@
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\BooleanParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\tests\test_boolean_search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

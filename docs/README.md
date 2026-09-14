@@ -485,18 +485,28 @@ machine algorithms learning
 
 ### Boolean Search
 
-SearchLite supports basic Boolean queries using:
+SearchLite supports Boolean retrieval using:
 
-- `AND` — documents must contain both terms
-- `OR` — documents containing either term
-- `NOT` — documents containing the first term while excluding documents containing the second term
+- `AND` — both operands must match
+- `OR` — either operand may match
+- `NOT` — excludes documents matching the operand
+
+Boolean expressions can be nested using parentheses.
 
 Examples:
 
-text
+```text
 machine AND learning
+
 machine OR computer
+
 machine NOT learning
+
+NOT machine
+
+machine AND (learning OR algorithms)
+
+machine OR learning AND computer
 
 
 ### TF-IDF Ranking

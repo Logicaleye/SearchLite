@@ -64,7 +64,9 @@ QueryProcessor::QueryProcessor(
     const TextProcessor& textProcessor
 )
     : index(index),
-      textProcessor(textProcessor) {
+      textProcessor(textProcessor),
+      booleanParser(),
+      booleanEvaluator(index, textProcessor) {
 }
 
 std::vector<int> QueryProcessor::search(
@@ -199,90 +201,14 @@ std::vector<int> QueryProcessor::searchBoolean(
     const std::string& query
 ) const {
 
-    std::vector<std::string> tokens;
+    auto root =
+        booleanParser.parse(query);
 
-    std::string current;
-
-    for (char ch : query) {
-
-        if (std::isspace(
-                static_cast<unsigned char>(ch))) {
-
-            if (!current.empty()) {
-                tokens.push_back(current);
-                current.clear();
-            }
-
-        } else {
-            current += ch;
-        }
-    }
-
-    if (!current.empty()) {
-        tokens.push_back(current);
-    }
-
-    // We currently support:
-    //
-    // term AND term
-    // term OR term
-    // term NOT term
-
-    if (tokens.size() != 3) {
+    if (!root) {
         return {};
     }
 
-    std::string leftTerm =
-        tokens[0];
-
-    std::string operation =
-        tokens[1];
-
-    std::string rightTerm =
-        tokens[2];
-
-    // Process individual terms.
-    auto leftTerms =
-        textProcessor.process(leftTerm);
-
-    auto rightTerms =
-        textProcessor.process(rightTerm);
-
-    if (leftTerms.size() != 1 ||
-        rightTerms.size() != 1) {
-
-        return {};
-    }
-
-    auto leftDocuments =
-        index.search(leftTerms[0]);
-
-    auto rightDocuments =
-        index.search(rightTerms[0]);
-
-    if (operation == "AND") {
-
-        return setAnd(
-            leftDocuments,
-            rightDocuments
-        );
-    }
-
-    if (operation == "OR") {
-
-        return setOr(
-            leftDocuments,
-            rightDocuments
-        );
-    }
-
-    if (operation == "NOT") {
-
-        return setNot(
-            leftDocuments,
-            rightDocuments
-        );
-    }
-
-    return {};
+    return booleanEvaluator.evaluate(
+        root.get()
+    );
 }

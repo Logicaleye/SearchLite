@@ -178,6 +178,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{6DAB9B97-FDA3-3BF6-A1F4-61CA157ED5E4}</Project>
       <Name>SearchLite</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestBooleanEvaluator.vcxproj">
+      <Project>{75AB1B97-C296-3926-A593-A71D65DFBCBC}</Project>
+      <Name>TestBooleanEvaluator</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestBooleanParser.vcxproj">
+      <Project>{9ADE7786-A700-3AF0-B788-FAE7D146BBF0}</Project>
+      <Name>TestBooleanParser</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.vcxproj">
       <Project>{D996A698-CC8A-3519-BEE0-0F9C2135BC49}</Project>
       <Name>TestBooleanSearch</Name>

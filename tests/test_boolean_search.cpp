@@ -90,6 +90,76 @@ int main() {
 
     assert(invalidResults.empty());
 
+    // --------------------------------------------
+// Nested Boolean expression
+// machine AND (learning OR algorithms)
+// --------------------------------------------
+
+auto nestedResults =
+    queryProcessor.searchBoolean(
+        "machine AND (learning OR algorithms)"
+    );
+
+assert(nestedResults.size() == 1);
+assert(nestedResults[0] == 1);
+
+
+// --------------------------------------------
+// Parentheses change precedence
+// (machine OR learning) AND computer
+// --------------------------------------------
+
+auto groupedResults =
+    queryProcessor.searchBoolean(
+        "(machine OR learning) AND computer"
+    );
+
+assert(groupedResults.size() == 2);
+assert(groupedResults[0] == 2);
+assert(groupedResults[1] == 3);
+
+
+// --------------------------------------------
+// Operator precedence
+// machine OR learning AND computer
+// --------------------------------------------
+
+auto precedenceResults =
+    queryProcessor.searchBoolean(
+        "machine OR learning AND computer"
+    );
+
+assert(precedenceResults.size() == 3);
+assert(precedenceResults[0] == 1);
+assert(precedenceResults[1] == 2);
+assert(precedenceResults[2] == 3);
+
+
+// --------------------------------------------
+// Standalone NOT
+// --------------------------------------------
+
+auto standaloneNot =
+    queryProcessor.searchBoolean(
+        "NOT machine"
+    );
+
+assert(standaloneNot.size() == 1);
+assert(standaloneNot[0] == 3);
+
+
+// --------------------------------------------
+// Lowercase operators
+// --------------------------------------------
+
+auto lowercaseResults =
+    queryProcessor.searchBoolean(
+        "machine and learning"
+    );
+
+assert(lowercaseResults.size() == 1);
+assert(lowercaseResults[0] == 1);
+
     std::cout
         << "All Boolean search tests passed!\n";
 

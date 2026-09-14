@@ -14,6 +14,8 @@ add_executable(SearchLite
     src/QueryProcessor.cpp
     src/Ranker.cpp
     src/Trie.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
 )
 
 target_include_directories(SearchLite PRIVATE
@@ -53,6 +55,8 @@ add_executable(TestQueryProcessor
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
     tests/test_query_processor.cpp
 )
 
@@ -65,6 +69,8 @@ add_executable(TestRanker
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
     src/Ranker.cpp
     tests/test_ranker.cpp
 )
@@ -94,37 +100,58 @@ target_include_directories(TestTrieIntegration PRIVATE
     include
 )
 
-# Phrase Search Tests
+# Test Phrase Search 
 add_executable(TestPhraseSearch
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
     tests/test_phrase_search.cpp
 )
 
-target_include_directories(TestPhraseSearch PRIVATE
-    include
-)
+target_include_directories(TestPhraseSearch PRIVATE include)
 
 # Boolean Search Tests
 add_executable(TestBooleanSearch
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
     tests/test_boolean_search.cpp
 )
 
-target_include_directories(TestBooleanSearch PRIVATE
-    include
-)
+target_include_directories(TestBooleanSearch PRIVATE include)
 
 #TestTopK
 add_executable(TestTopK
     src/InvertedIndex.cpp
     src/TextProcessor.cpp
     src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
     src/Ranker.cpp
     tests/test_top_k.cpp
 )
 
 target_include_directories(TestTopK PRIVATE include)
+
+#TestBooleanParser
+add_executable(TestBooleanParser
+    src/BooleanParser.cpp
+    tests/test_boolean_parser.cpp
+)
+
+target_include_directories(TestBooleanParser PRIVATE include)
+
+#TestBooleanEvaluater
+add_executable(TestBooleanEvaluator
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
+    tests/test_boolean_evaluator.cpp
+)
+
+target_include_directories(TestBooleanEvaluator PRIVATE include)

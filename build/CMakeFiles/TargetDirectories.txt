@@ -9,5 +9,7 @@ C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTrieIntegration.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestPhraseSearch.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestBooleanSearch.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestTopK.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestBooleanParser.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestBooleanEvaluator.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ZERO_CHECK.dir
