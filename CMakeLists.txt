@@ -117,3 +117,14 @@ add_executable(TestBooleanSearch
 target_include_directories(TestBooleanSearch PRIVATE
     include
 )
+
+#TestTopK
+add_executable(TestTopK
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    src/Ranker.cpp
+    tests/test_top_k.cpp
+)
+
+target_include_directories(TestTopK PRIVATE include)

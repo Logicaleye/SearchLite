@@ -520,6 +520,19 @@ This gives greater importance to terms that are frequent within a
 document but relatively rare across the overall document collection.
 
 
+### Top-K Retrieval
+
+SearchLite supports Top-K retrieval for ranked search results.
+
+Instead of sorting every matching document, the Ranker maintains a
+min-heap containing only the best K results.
+
+For example:
+
+```text
+rank("machine learning", 10)
+
+
 # 8. Architecture Diagram
 
 ### *1* Initial Diagram
@@ -651,3 +664,20 @@ User Query ────────────────┤
           + Trie
              ↓
         Autocomplete
+
+
+### *5* Top-K Selection:
+
+SearchLite uses a min-heap to maintain the current best K results.
+
+For every scored document:
+
+1. Insert the result while the heap contains fewer than K results.
+2. Once K results are stored, compare the new result with the weakest
+   result.
+3. Replace the weakest result if the new result is better.
+4. Extract the retained results and sort them by relevance.
+
+The heap-based selection requires approximately O(R log K) time and
+O(K) additional space.
+

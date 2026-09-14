@@ -5,6 +5,7 @@
 #include "RankedResult.h"
 #include "TextProcessor.h"
 #include "QueryProcessor.h"
+#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -22,7 +23,12 @@ public:
     );
 
     std::vector<RankedResult> rank(
-        const std::string& query
+    const std::string& query
+    ) const;
+
+    std::vector<RankedResult> rank(
+    const std::string& query,
+    std::size_t topK
     ) const;
 };
 

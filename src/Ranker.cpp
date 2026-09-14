@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <queue>
 #include <unordered_map>
 
 double calculateIDF(
@@ -29,6 +30,20 @@ double calculateIDF(
         totalDocuments / documentFrequency
     );
 }
+
+struct WorseResultFirst {
+    bool operator()(
+        const RankedResult& a,
+        const RankedResult& b
+    ) const {
+
+        if (a.score != b.score) {
+            return a.score > b.score;
+        }
+
+        return a.documentId > b.documentId;
+    }
+};
 
 Ranker::Ranker(
     const InvertedIndex& index,
@@ -95,6 +110,113 @@ std::vector<RankedResult> Ranker::rank(
         results.begin(),
         results.end(),
         [](const RankedResult& a, const RankedResult& b) {
+
+            if (a.score != b.score) {
+                return a.score > b.score;
+            }
+
+            return a.documentId < b.documentId;
+        }
+    );
+
+    return results;
+}
+
+std::vector<RankedResult> Ranker::rank(
+    const std::string& query,
+    std::size_t topK
+) const {
+
+    if (topK == 0) {
+        return {};
+    }
+
+    std::vector<std::string> terms =
+        textProcessor.process(query);
+
+    if (terms.empty()) {
+        return {};
+    }
+
+    std::vector<int> matchingDocuments =
+        queryProcessor.search(query);
+
+    if (matchingDocuments.empty()) {
+        return {};
+    }
+
+    std::unordered_map<int, double> scores;
+
+    for (int documentId : matchingDocuments) {
+        scores[documentId] = 0.0;
+    }
+
+    for (const std::string& term : terms) {
+
+        const auto& postings =
+            index.getPostings(term);
+
+        double idf =
+            calculateIDF(index, term);
+
+        for (const auto& [documentId, frequency] : postings) {
+
+            if (scores.find(documentId) != scores.end()) {
+
+                scores[documentId] +=
+                    frequency * idf;
+            }
+        }
+    }
+
+    std::priority_queue<
+        RankedResult,
+        std::vector<RankedResult>,
+        WorseResultFirst
+    > heap;
+
+    for (const auto& [documentId, score] : scores) {
+
+        RankedResult result{
+            documentId,
+            score
+        };
+
+        if (heap.size() < topK) {
+
+            heap.push(result);
+
+        } else {
+
+    const auto& worst = heap.top();
+
+    bool better =
+        result.score > worst.score ||
+        (
+            result.score == worst.score &&
+            result.documentId < worst.documentId
+        );
+
+    if (better) {
+        heap.pop();
+        heap.push(result);
+    }
+}
+    }
+
+    std::vector<RankedResult> results;
+
+    while (!heap.empty()) {
+
+        results.push_back(heap.top());
+        heap.pop();
+    }
+
+    std::sort(
+        results.begin(),
+        results.end(),
+        [](const RankedResult& a,
+           const RankedResult& b) {
 
             if (a.score != b.score) {
                 return a.score > b.score;

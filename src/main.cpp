@@ -122,7 +122,7 @@ if (isBooleanQuery) {
     continue;
 }
 
-auto results = ranker.rank(query);
+auto results = ranker.rank(query, 10);
 
 if (results.empty()) {
     std::cout
