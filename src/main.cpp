@@ -91,9 +91,7 @@ int main() {
     continue;
 }
 
-BooleanParser booleanParser;
-
-if (booleanParser.isBooleanQuery(query)) {
+    if (queryProcessor.isBooleanQuery(query)) {
 
     auto booleanResults =
         queryProcessor.searchBoolean(query);

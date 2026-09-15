@@ -34,6 +34,14 @@ public:
     std::vector<int> searchBoolean(
         const std::string& query
     ) const;
+
+    bool isBooleanQuery(
+    const std::string& query
+    ) const;
+
+    std::vector<int> searchCandidates(
+    const std::string& query
+    ) const;
 };
 
 #endif

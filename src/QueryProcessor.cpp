@@ -212,3 +212,23 @@ std::vector<int> QueryProcessor::searchBoolean(
         root.get()
     );
 }
+
+bool QueryProcessor::isBooleanQuery(
+    const std::string& query
+) const {
+
+    return booleanParser.isBooleanQuery(query);
+}
+
+std::vector<int>
+QueryProcessor::searchCandidates(
+    const std::string& query
+) const {
+
+    if (isBooleanQuery(query)) {
+
+        return searchBoolean(query);
+    }
+
+    return search(query);
+}

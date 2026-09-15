@@ -338,6 +338,9 @@ used during document indexing.
 The system shall support returning the top K ranked documents for a
 search query.
 
+Top-K selection shall operate on the candidate documents produced by
+the retrieval stage, including candidates produced by Boolean queries.
+
 The system shall maintain at most K candidate results during the
 Top-K selection process.
 
@@ -543,7 +546,11 @@ Therefore, "machine learning" occurs at positions 0–1 and 3–4.
 
 # 9. TF-IDF Relevance Ranking
 
-The system shall rank normal search results using TF-IDF scoring.
+The system shall rank retrieved candidate documents using TF-IDF
+scoring.
+
+Candidate documents may originate from normal term retrieval or
+Boolean retrieval.
 
 For each query term, the system shall consider:
 

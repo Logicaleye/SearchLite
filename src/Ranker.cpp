@@ -67,8 +67,8 @@ std::vector<RankedResult> Ranker::rank(
 
     // First determine which documents satisfy
     // the query using AND semantics.
-    std::vector<int> matchingDocuments =
-        queryProcessor.search(query);
+    auto matchingDocuments =
+    queryProcessor.searchCandidates(query);
 
     if (matchingDocuments.empty()) {
         return {};
@@ -138,8 +138,8 @@ std::vector<RankedResult> Ranker::rank(
         return {};
     }
 
-    std::vector<int> matchingDocuments =
-        queryProcessor.search(query);
+    auto matchingDocuments =
+    queryProcessor.searchCandidates(query);
 
     if (matchingDocuments.empty()) {
         return {};

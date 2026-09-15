@@ -230,6 +230,147 @@ assert(
 assert(multiResults[0].documentId == 2);
 assert(multiResults[1].documentId == 1);
 
+    // --------------------------------------------
+    // Test 7: Boolean filtering + TF-IDF ranking
+    // --------------------------------------------
+
+    InvertedIndex booleanIndex;
+
+    // Document 1
+    // machine appears twice
+    // learning appears once
+    booleanIndex.add("machine", 1);
+    booleanIndex.add("machine", 1);
+    booleanIndex.add("learning", 1);
+
+    // Document 2
+    // machine appears once
+    // learning appears once
+    booleanIndex.add("machine", 2);
+    booleanIndex.add("learning", 2);
+
+    // Document 3
+    // machine only
+    booleanIndex.add("machine", 3);
+
+    QueryProcessor booleanQueryProcessor(
+        booleanIndex,
+        textProcessor
+    );
+
+    Ranker booleanRanker(
+        booleanIndex,
+        textProcessor,
+        booleanQueryProcessor
+    );
+
+    auto booleanResults =
+        booleanRanker.rank(
+            "machine AND learning"
+        );
+
+    // Only documents containing BOTH terms
+    // should be candidates.
+    assert(booleanResults.size() == 2);
+
+    // Document 1 has higher machine TF,
+    // so it should rank above Document 2.
+    assert(booleanResults[0].documentId == 1);
+    assert(booleanResults[1].documentId == 2);
+
+        // --------------------------------------------
+    // Test 8: Boolean OR + TF-IDF ranking
+    // --------------------------------------------
+
+    InvertedIndex orIndex;
+
+    // Document 1
+    // machine × 3
+    orIndex.add("machine", 1);
+    orIndex.add("machine", 1);
+    orIndex.add("machine", 1);
+
+    // Document 2
+    // learning × 2
+    orIndex.add("learning", 2);
+    orIndex.add("learning", 2);
+
+    // Document 3
+    // machine × 1
+    // learning × 1
+    orIndex.add("machine", 3);
+    orIndex.add("learning", 3);
+
+    // Document 4
+    // unrelated
+    orIndex.add("computer", 4);
+
+    QueryProcessor orQueryProcessor(
+        orIndex,
+        textProcessor
+    );
+
+    Ranker orRanker(
+        orIndex,
+        textProcessor,
+        orQueryProcessor
+    );
+
+    auto orResults =
+        orRanker.rank(
+            "machine OR learning"
+        );
+
+    // Documents 1, 2 and 3 satisfy the OR query.
+    assert(orResults.size() == 3);
+
+    // machine appears in documents 1 and 3.
+    // learning appears in documents 2 and 3.
+    //
+    // Both terms therefore contribute to the score
+    // of Document 3.
+    assert(orResults[0].documentId == 1);
+    assert(orResults[1].documentId == 2);
+    assert(orResults[2].documentId == 3);
+
+        // --------------------------------------------
+    // Test 9: Boolean NOT + TF-IDF ranking
+    // --------------------------------------------
+
+    InvertedIndex notIndex;
+
+    // Document 1
+    notIndex.add("machine", 1);
+    notIndex.add("learning", 1);
+
+    // Document 2
+    notIndex.add("machine", 2);
+    notIndex.add("computer", 2);
+
+    // Document 3
+    notIndex.add("learning", 3);
+
+    QueryProcessor notQueryProcessor(
+        notIndex,
+        textProcessor
+    );
+
+    Ranker notRanker(
+        notIndex,
+        textProcessor,
+        notQueryProcessor
+    );
+
+    auto notResults =
+        notRanker.rank(
+            "machine NOT learning"
+        );
+
+    // Only Document 2 contains machine
+    // without learning.
+    assert(notResults.size() == 1);
+    assert(notResults[0].documentId == 2);
+
     std::cout
         << "All TF-IDF Ranker tests passed!\n";
 

@@ -149,6 +149,67 @@ assert(tieResults.size() == 2);
 assert(tieResults[0].documentId == 1);
 assert(tieResults[1].documentId == 2);
 
+    // --------------------------------------------
+    // Test 8: Boolean filtering + Top-K
+    // --------------------------------------------
+
+    InvertedIndex booleanIndex;
+
+    // Document 1
+    // machine × 5, learning × 1
+    for (int i = 0; i < 5; ++i) {
+        booleanIndex.add("machine", 1);
+    }
+    booleanIndex.add("learning", 1);
+
+    // Document 2
+    // machine × 4, learning × 1
+    for (int i = 0; i < 4; ++i) {
+        booleanIndex.add("machine", 2);
+    }
+    booleanIndex.add("learning", 2);
+
+    // Document 3
+    // machine × 3, learning × 1
+    for (int i = 0; i < 3; ++i) {
+        booleanIndex.add("machine", 3);
+    }
+    booleanIndex.add("learning", 3);
+
+    // Document 4
+    // machine only
+    booleanIndex.add("machine", 4);
+
+    // Document 5
+    // learning only
+    booleanIndex.add("learning", 5);
+
+    QueryProcessor booleanQueryProcessor(
+        booleanIndex,
+        textProcessor
+    );
+
+    Ranker booleanRanker(
+        booleanIndex,
+        textProcessor,
+        booleanQueryProcessor
+    );
+
+    auto booleanTopKResults =
+        booleanRanker.rank(
+            "machine AND learning",
+            2
+        );
+
+    // Only documents containing BOTH terms
+    // are eligible.
+    assert(booleanTopKResults.size() == 2);
+
+    // Among eligible documents:
+    // Doc 1 > Doc 2 > Doc 3
+    assert(booleanTopKResults[0].documentId == 1);
+    assert(booleanTopKResults[1].documentId == 2);
+
     std::cout
         << "All Top-K tests passed!\n";
 

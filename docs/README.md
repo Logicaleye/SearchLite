@@ -509,6 +509,16 @@ machine AND (learning OR algorithms)
 machine OR learning AND computer
 
 
+### Boolean Retrieval + Ranking
+
+Boolean queries are integrated with the ranking pipeline.
+
+For example:
+
+```text
+machine AND learning
+
+
 ### TF-IDF Ranking
 
 SearchLite ranks normal search results using Term Frequency-Inverse
