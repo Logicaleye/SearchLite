@@ -8,6 +8,7 @@
 
 enum class TokenType {
     TERM,
+    PHRASE,
     AND,
     OR,
     NOT,
@@ -23,6 +24,7 @@ struct BooleanToken {
 struct BooleanNode {
     enum class Type {
         TERM,
+        PHRASE,
         AND,
         OR,
         NOT

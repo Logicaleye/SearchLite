@@ -91,6 +91,16 @@ BooleanEvaluator::evaluateNode(
     return index.search(terms[0]);
 }
 
+if (
+    node->type ==
+    BooleanNode::Type::PHRASE
+) {
+    auto terms =
+        textProcessor.process(node->value);
+
+    return index.searchPhrase(terms);
+}
+
     if (
         node->type ==
         BooleanNode::Type::AND

@@ -10,6 +10,7 @@ BooleanParser::tokenize(
     std::vector<BooleanToken> tokens;
 
     std::string current;
+    bool insideQuotes = false;
 
     auto addTerm = [&]() {
 
@@ -61,6 +62,41 @@ BooleanParser::tokenize(
 
     for (char c : query) {
 
+        // Start or end a quoted phrase
+        if (c == '"') {
+
+            if (insideQuotes) {
+
+                if (!current.empty()) {
+
+                    tokens.push_back({
+                        TokenType::PHRASE,
+                        current
+                    });
+
+                    current.clear();
+                }
+
+                insideQuotes = false;
+
+            } else {
+
+                addTerm();
+
+                insideQuotes = true;
+            }
+
+            continue;
+        }
+
+        // Everything inside quotes belongs
+        // to the same phrase.
+        if (insideQuotes) {
+
+            current += c;
+            continue;
+        }
+
         if (std::isspace(
                 static_cast<unsigned char>(c)
             )) {
@@ -91,6 +127,13 @@ BooleanParser::tokenize(
         }
     }
 
+    // An unclosed quote is handled later
+    // by parse(), so don't create a PHRASE here.
+    if (insideQuotes) {
+
+        return {};
+    }
+
     addTerm();
 
     return tokens;
@@ -103,7 +146,10 @@ BooleanParser::parseOr() {
 
     auto left = parseAnd();
 
-while (
+    if (!left) {
+        return nullptr;
+    }
+    while (
     current < tokens.size() &&
     tokens[current].type == TokenType::OR
 ) {
@@ -111,10 +157,13 @@ while (
 
     auto right = parseAnd();
 
+    if (!right) {
+            return nullptr;
+    }
     auto node =
         std::make_unique<BooleanNode>(
             BooleanNode::Type::OR
-        );
+    );
 
     node->left = std::move(left);
     node->right = std::move(right);
@@ -132,6 +181,9 @@ BooleanParser::parseAnd() {
 
     auto left = parseUnary();
 
+    if (!left) {
+        return nullptr;
+    }
     while (
         current < tokens.size() &&
         (
@@ -223,6 +275,22 @@ BooleanParser::parsePrimary() {
     }
 
     if (
+    tokens[current].type ==
+    TokenType::PHRASE
+    ) {
+
+    auto node =
+        std::make_unique<BooleanNode>(
+            BooleanNode::Type::PHRASE,
+            tokens[current].value
+        );
+
+    ++current;
+
+    return node;
+    }
+
+    if (
         tokens[current].type ==
         TokenType::LEFT_PAREN
     ) {
@@ -231,21 +299,26 @@ BooleanParser::parsePrimary() {
 
         auto node = parseOr();
 
-        if (
-            current < tokens.size() &&
-            tokens[current].type ==
-            TokenType::RIGHT_PAREN
-        ) {
-
-            ++current;
-            return node;
+        if (!node) {
+            return nullptr;
         }
 
-        return nullptr;
+        if (
+            current >= tokens.size() ||
+            tokens[current].type !=
+            TokenType::RIGHT_PAREN
+        ) {
+            return nullptr;
+        }
+
+        ++current;
+
+        return node;
     }
 
     return nullptr;
 }
+
 
 
 std::unique_ptr<BooleanNode>

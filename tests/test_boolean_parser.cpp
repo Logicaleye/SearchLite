@@ -157,6 +157,133 @@ assert(
     "machine"
 );
 
+    // --------------------------------------------
+    // Edge Case Tests
+    // --------------------------------------------
+
+    // Missing right operand
+    auto invalidAnd =
+        parser.parse("machine AND");
+
+    assert(!invalidAnd);
+
+    // Missing right operand
+    auto invalidOr =
+        parser.parse("machine OR");
+
+    assert(!invalidOr);
+
+    // Operator at beginning
+    auto invalidBeginning =
+        parser.parse("AND machine");
+
+    assert(!invalidBeginning);
+
+    // Missing closing parenthesis
+    auto missingClosing =
+        parser.parse("(machine AND learning");
+
+    assert(!missingClosing);
+
+    // Empty parentheses
+    auto emptyParentheses =
+        parser.parse("()");
+
+    assert(!emptyParentheses);
+
+    // Unsupported operator
+    auto unsupportedOperator =
+        parser.parse("machine XOR learning");
+
+    assert(!unsupportedOperator);
+
+        // --------------------------------------------
+    // Phrase tokenisation
+    // --------------------------------------------
+
+    auto phraseTokens =
+        parser.tokenize(
+            "machine AND \"learning algorithms\""
+        );
+
+    assert(phraseTokens.size() == 3);
+
+    assert(
+        phraseTokens[0].type ==
+        TokenType::TERM
+    );
+
+    assert(
+        phraseTokens[0].value ==
+        "machine"
+    );
+
+    assert(
+        phraseTokens[1].type ==
+        TokenType::AND
+    );
+
+    assert(
+        phraseTokens[2].type ==
+        TokenType::PHRASE
+    );
+
+    assert(
+        phraseTokens[2].value ==
+        "learning algorithms"
+    );
+
+        auto unclosedPhrase =
+        parser.tokenize(
+            "machine AND \"learning algorithms"
+        );
+
+    assert(unclosedPhrase.empty());
+
+        // --------------------------------------------
+    // Phrase AST
+    // --------------------------------------------
+
+    auto phraseQuery =
+        parser.parse(
+            "machine AND \"learning algorithms\""
+        );
+
+    assert(phraseQuery != nullptr);
+
+    assert(
+        phraseQuery->type ==
+        BooleanNode::Type::AND
+    );
+
+    assert(
+        phraseQuery->left != nullptr
+    );
+
+    assert(
+        phraseQuery->left->type ==
+        BooleanNode::Type::TERM
+    );
+
+    assert(
+        phraseQuery->left->value ==
+        "machine"
+    );
+
+    assert(
+        phraseQuery->right != nullptr
+    );
+
+    assert(
+        phraseQuery->right->type ==
+        BooleanNode::Type::PHRASE
+    );
+
+    assert(
+        phraseQuery->right->value ==
+        "learning algorithms"
+    );
+
     std::cout
         << "All Boolean parser tests passed!\n";
 

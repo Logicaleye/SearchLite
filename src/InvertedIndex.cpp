@@ -94,3 +94,85 @@ std::vector<int> InvertedIndex::getAllDocuments() const {
         documents.end()
     );
 }
+
+std::vector<int>
+InvertedIndex::searchPhrase(
+    const std::vector<std::string>& terms
+) const {
+
+    if (terms.empty()) {
+        return {};
+    }
+
+    // Single-term phrase
+    if (terms.size() == 1) {
+        return search(terms[0]);
+    }
+
+    const auto& firstPositions =
+        getPositions(terms[0]);
+
+    if (firstPositions.empty()) {
+        return {};
+    }
+
+    std::vector<int> results;
+
+    for (const auto& [documentId, positions] :
+         firstPositions) {
+
+        bool matched = false;
+
+        for (int position : positions) {
+
+            bool sequenceFound = true;
+
+            for (std::size_t i = 1;
+                 i < terms.size();
+                 ++i) {
+
+                const auto& nextPositions =
+                    getPositions(terms[i]);
+
+                auto documentIt =
+                    nextPositions.find(documentId);
+
+                if (
+                    documentIt ==
+                    nextPositions.end()
+                ) {
+                    sequenceFound = false;
+                    break;
+                }
+
+                if (
+                    !std::binary_search(
+                        documentIt->second.begin(),
+                        documentIt->second.end(),
+                        position +
+                            static_cast<int>(i)
+                    )
+                ) {
+                    sequenceFound = false;
+                    break;
+                }
+            }
+
+            if (sequenceFound) {
+                matched = true;
+                break;
+            }
+        }
+
+        if (matched) {
+            results.push_back(documentId);
+        }
+    }
+
+    std::sort(
+        results.begin(),
+        results.end()
+    );
+
+    return results;
+}

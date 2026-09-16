@@ -41,6 +41,10 @@ public:
         const std::string& term
     ) const;
 
+    std::vector<int> searchPhrase(
+    const std::vector<std::string>& terms
+    ) const;
+
     bool contains(
         const std::string& term
     ) const;
