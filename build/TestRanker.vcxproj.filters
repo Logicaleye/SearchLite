@@ -19,6 +19,9 @@
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\Ranker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\SearchCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\tests\test_ranker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

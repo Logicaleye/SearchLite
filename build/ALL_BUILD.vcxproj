@@ -210,6 +210,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{46E5794A-3473-3C97-B799-7DA4FBEBF65F}</Project>
       <Name>TestRanker</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestSearchCache.vcxproj">
+      <Project>{3E2AE4B1-A0BF-3791-BC27-A46371FBE560}</Project>
+      <Name>TestSearchCache</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestTextProcessor.vcxproj">
       <Project>{FC12E33B-3D0F-38E4-918D-BD44C8929512}</Project>
       <Name>TestTextProcessor</Name>

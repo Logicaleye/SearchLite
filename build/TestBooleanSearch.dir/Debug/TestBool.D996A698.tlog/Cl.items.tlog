@@ -3,4 +3,5 @@ C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp;C:\Users\as562\Desktop\S
 C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.dir\Debug\QueryProcessor.obj
 C:\Users\as562\Desktop\Searchlite\src\BooleanParser.cpp;C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.dir\Debug\BooleanParser.obj
 C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp;C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.dir\Debug\BooleanEvaluator.obj
+C:\Users\as562\Desktop\Searchlite\src\SearchCache.cpp;C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.dir\Debug\SearchCache.obj
 C:\Users\as562\Desktop\Searchlite\tests\test_boolean_search.cpp;C:\Users\as562\Desktop\Searchlite\build\TestBooleanSearch.dir\Debug\test_boolean_search.obj

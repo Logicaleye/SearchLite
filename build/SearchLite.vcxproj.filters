@@ -28,6 +28,9 @@
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\SearchCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\as562\Desktop\Searchlite\CMakeLists.txt" />

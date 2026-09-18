@@ -5,6 +5,7 @@
 #include "TextProcessor.h"
 #include "BooleanParser.h"
 #include "BooleanEvaluator.h"
+#include "SearchCache.h"
 
 #include <string>
 #include <vector>
@@ -16,6 +17,8 @@ private:
 
     mutable BooleanParser booleanParser;
     BooleanEvaluator booleanEvaluator;
+
+    mutable SearchCache cache;
 
 public:
     QueryProcessor(

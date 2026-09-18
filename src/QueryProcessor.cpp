@@ -66,12 +66,19 @@ QueryProcessor::QueryProcessor(
     : index(index),
       textProcessor(textProcessor),
       booleanParser(),
-      booleanEvaluator(index, textProcessor) {
+      booleanEvaluator(index, textProcessor),
+      cache(100) {
 }
 
 std::vector<int> QueryProcessor::search(
     const std::string& query
 ) const {
+
+    std::vector<int> cachedResults;
+
+    if (cache.get(query, cachedResults)) {
+        return cachedResults;
+    }
 
     std::vector<std::string> terms =
         textProcessor.process(query);
@@ -107,6 +114,8 @@ std::vector<int> QueryProcessor::search(
         }
     }
 
+    cache.put(query, result);
+
     return result;
 }
 
@@ -115,16 +124,36 @@ QueryProcessor::searchPhrase(
     const std::string& phrase
 ) const {
 
+    std::vector<int> cachedResults;
+
+    if (cache.get(phrase, cachedResults)) {
+        return cachedResults;
+    }
+
     std::vector<std::string> terms =
         textProcessor.process(phrase);
 
-    return index.searchPhrase(terms);
+    std::vector<int> results =
+        index.searchPhrase(terms);
+
+    cache.put(
+        phrase,
+        results
+    );
+
+    return results;
 }
 
 std::vector<int>
 QueryProcessor::searchBoolean(
     const std::string& query
 ) const {
+
+    std::vector<int> cachedResults;
+
+    if (cache.get(query, cachedResults)) {
+        return cachedResults;
+    }
 
     auto root =
         booleanParser.parse(query);
@@ -133,9 +162,17 @@ QueryProcessor::searchBoolean(
         return {};
     }
 
-    return booleanEvaluator.evaluate(
-        root.get()
+    std::vector<int> results =
+        booleanEvaluator.evaluate(
+            root.get()
+        );
+
+    cache.put(
+        query,
+        results
     );
+
+    return results;
 }
 
 bool QueryProcessor::isBooleanQuery(
