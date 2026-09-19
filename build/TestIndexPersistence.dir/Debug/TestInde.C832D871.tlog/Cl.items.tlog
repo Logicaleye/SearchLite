@@ -1,0 +1,8 @@
+C:\Users\as562\Desktop\Searchlite\src\InvertedIndex.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\InvertedIndex.obj
+C:\Users\as562\Desktop\Searchlite\src\TextProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\TextProcessor.obj
+C:\Users\as562\Desktop\Searchlite\src\QueryProcessor.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\QueryProcessor.obj
+C:\Users\as562\Desktop\Searchlite\src\BooleanParser.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\BooleanParser.obj
+C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\BooleanEvaluator.obj
+C:\Users\as562\Desktop\Searchlite\src\SearchCache.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\SearchCache.obj
+C:\Users\as562\Desktop\Searchlite\src\IndexPersistence.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\IndexPersistence.obj
+C:\Users\as562\Desktop\Searchlite\tests\test_index_persistence.cpp;C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.dir\Debug\test_index_persistence.obj

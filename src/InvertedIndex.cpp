@@ -176,3 +176,46 @@ InvertedIndex::searchPhrase(
 
     return results;
 }
+
+std::vector<std::string>
+InvertedIndex::getTerms() const {
+
+    std::vector<std::string> terms;
+
+    for (const auto& [term, postings] : index) {
+        terms.push_back(term);
+    }
+
+    std::sort(
+        terms.begin(),
+        terms.end()
+    );
+
+    return terms;
+}
+
+void InvertedIndex::restore(
+    const std::string& term,
+    int documentId,
+    int frequency,
+    const std::vector<int>& positions
+) {
+
+    index[term][documentId] =
+        frequency;
+
+    if (!positions.empty()) {
+        this->positions[term][documentId] =
+            positions;
+    }
+
+    documents.insert(documentId);
+}
+
+void InvertedIndex::replaceWith(
+    const InvertedIndex& other
+) {
+    index = other.index;
+    positions = other.positions;
+    documents = other.documents;
+}

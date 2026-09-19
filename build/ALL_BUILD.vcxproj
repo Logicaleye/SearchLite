@@ -194,6 +194,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{886CC46F-5C50-3C63-88B5-1EB203DCB6E8}</Project>
       <Name>TestDocumentLoader</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestIndexPersistence.vcxproj">
+      <Project>{C832D871-EB31-35D1-94DF-D9D36692D7A2}</Project>
+      <Name>TestIndexPersistence</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\as562\Desktop\Searchlite\build\TestInvertedIndex.vcxproj">
       <Project>{96115060-99B3-3A89-9DED-2A4188F7E275}</Project>
       <Name>TestInvertedIndex</Name>

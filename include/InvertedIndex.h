@@ -61,6 +61,28 @@ public:
     ) const;
 
     std::vector<int> getAllDocuments() const;
+
+     bool saveToFile(
+    const std::string& filename
+    ) const;
+
+    bool loadFromFile(
+    const std::string& filename
+    );
+
+    std::vector<std::string> getTerms() const;
+
+    void restore(
+    const std::string& term,
+    int documentId,
+    int frequency,
+    const std::vector<int>& positions
+    );
+
+    void replaceWith(
+    const InvertedIndex& other
+    );
+
 };
 
 #endif

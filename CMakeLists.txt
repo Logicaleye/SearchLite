@@ -17,6 +17,7 @@ add_executable(SearchLite
     src/BooleanParser.cpp
     src/BooleanEvaluator.cpp
     src/SearchCache.cpp
+    src/IndexPersistence.cpp
 )
 
 target_include_directories(SearchLite PRIVATE
@@ -168,5 +169,21 @@ add_executable(TestSearchCache
 )
 
 target_include_directories(TestSearchCache PRIVATE
+    include
+)
+
+# Index Persistence Tests
+add_executable(TestIndexPersistence
+    src/InvertedIndex.cpp
+    src/TextProcessor.cpp
+    src/QueryProcessor.cpp
+    src/BooleanParser.cpp
+    src/BooleanEvaluator.cpp
+    src/SearchCache.cpp
+    src/IndexPersistence.cpp
+    tests/test_index_persistence.cpp
+)
+
+target_include_directories(TestIndexPersistence PRIVATE
     include
 )
