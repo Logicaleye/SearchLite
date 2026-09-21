@@ -1,4 +1,5 @@
 #include "IndexPersistence.h"
+#include "IndexMetadata.h"
 
 #include <fstream>
 #include <vector>
@@ -109,6 +110,14 @@ bool IndexPersistence::load(
     if (!input) {
         return false;
     }
+
+    // --------------------------------------------------
+    // Load into temporary index first
+    // --------------------------------------------------
+    // This preserves atomic loading:
+    // if anything fails, the existing index
+    // remains unchanged.
+
     InvertedIndex temporaryIndex;
 
     // --------------------------------------------------
@@ -125,9 +134,11 @@ bool IndexPersistence::load(
         documentCount
     );
 
-    for (std::size_t i = 0;
-         i < documentCount;
-         ++i) {
+    for (
+        std::size_t i = 0;
+        i < documentCount;
+        ++i
+    ) {
 
         if (!(input >> documents[i])) {
             return false;
@@ -144,9 +155,11 @@ bool IndexPersistence::load(
         return false;
     }
 
-    for (std::size_t i = 0;
-         i < termCount;
-         ++i) {
+    for (
+        std::size_t i = 0;
+        i < termCount;
+        ++i
+    ) {
 
         std::string term;
 
@@ -166,9 +179,11 @@ bool IndexPersistence::load(
 
         std::unordered_map<int, int> frequencies;
 
-        for (std::size_t j = 0;
-             j < postingCount;
-             ++j) {
+        for (
+            std::size_t j = 0;
+            j < postingCount;
+            ++j
+        ) {
 
             int documentId;
             int frequency;
@@ -200,9 +215,11 @@ bool IndexPersistence::load(
             std::vector<int>
         > positionalData;
 
-        for (std::size_t j = 0;
-             j < positionalCount;
-             ++j) {
+        for (
+            std::size_t j = 0;
+            j < positionalCount;
+            ++j
+        ) {
 
             int documentId;
             std::size_t positionCount;
@@ -219,9 +236,11 @@ bool IndexPersistence::load(
                 positionCount
             );
 
-            for (std::size_t k = 0;
-                 k < positionCount;
-                 ++k) {
+            for (
+                std::size_t k = 0;
+                k < positionCount;
+                ++k
+            ) {
 
                 if (!(input >> positions[k])) {
                     return false;
@@ -267,9 +286,91 @@ bool IndexPersistence::load(
             }
         }
     }
-index.replaceWith(
-    temporaryIndex
-);
 
-return true;
+    // --------------------------------------------------
+    // Atomically replace existing index
+    // --------------------------------------------------
+
+    index.replaceWith(
+        temporaryIndex
+    );
+
+    return true;
+}
+
+
+// ======================================================
+// Metadata Persistence
+// ======================================================
+
+bool IndexPersistence::saveMetadata(
+    const IndexMetadata& metadata,
+    const std::string& filename
+) {
+    std::ofstream output(
+        filename,
+        std::ios::trunc
+    );
+
+    if (!output) {
+        return false;
+    }
+
+    const auto& documents =
+        metadata.getDocuments();
+
+    output << documents.size() << '\n';
+
+    for (
+        const auto& [path, timestamp] :
+        documents
+    ) {
+
+        output
+            << path
+            << '\t'
+            << timestamp
+            << '\n';
+    }
+
+    return output.good();
+}
+
+
+bool IndexPersistence::loadMetadata(
+    IndexMetadata& metadata,
+    const std::string& filename
+) {
+    std::ifstream input(filename);
+
+    if (!input) {
+        return false;
+    }
+
+    std::size_t documentCount;
+
+    if (!(input >> documentCount)) {
+        return false;
+    }
+
+    std::string path;
+    long long timestamp;
+
+    for (
+        std::size_t i = 0;
+        i < documentCount;
+        ++i
+    ) {
+
+        if (!(input >> path >> timestamp)) {
+            return false;
+        }
+
+        metadata.addDocument(
+            path,
+            timestamp
+        );
+    }
+
+    return true;
 }

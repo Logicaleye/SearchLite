@@ -6,14 +6,13 @@
 #include "Trie.h"
 #include "BooleanParser.h"
 #include "IndexPersistence.h"
+#include "IndexMetadata.h"
+#include "IndexValidator.h"
 
 #include <iostream>
 #include <string>
 
 int main() {
-
-    const std::string indexFile =
-        "data/index.dat";
 
     DocumentLoader loader;
     TextProcessor textProcessor;
@@ -21,8 +20,20 @@ int main() {
     Trie trie;
 
     // --------------------------------------------------
-    // Load persisted index or build a new index
+    // Persistence files
     // --------------------------------------------------
+
+    const std::string indexFile =
+        "data/index.dat";
+
+    const std::string metadataFile =
+        "data/index.meta";
+
+    // --------------------------------------------------
+    // Load persisted index if it is still valid
+    // --------------------------------------------------
+
+    IndexMetadata metadata;
 
     bool indexLoaded =
         IndexPersistence::load(
@@ -30,24 +41,74 @@ int main() {
             indexFile
         );
 
+    bool metadataLoaded = false;
+
     if (indexLoaded) {
 
+        metadataLoaded =
+            IndexPersistence::loadMetadata(
+                metadata,
+                metadataFile
+            );
+    }
+
+    bool indexValid =
+        indexLoaded &&
+        metadataLoaded &&
+        IndexValidator::isValid(
+            "data",
+            metadata
+        );
+
+    if (indexValid) {
+
         std::cout
-            << "Loaded persisted index."
+            << "Loaded valid persisted index."
             << std::endl;
 
+        // --------------------------------------------------
         // Rebuild Trie from persisted terms
-        // because Trie is not currently persisted.
-        for (const auto& term : index.getTerms()) {
+        // --------------------------------------------------
+
+        for (
+            const auto& term :
+            index.getTerms()
+        ) {
 
             trie.insert(term);
         }
 
     } else {
 
+        // --------------------------------------------------
+        // Existing index is missing or stale
+        // --------------------------------------------------
+
+        if (
+            indexLoaded &&
+            metadataLoaded
+        ) {
+
+            std::cout
+                << "Persisted index is stale."
+                << std::endl;
+
+        } else {
+
+            std::cout
+                << "No valid persisted index found."
+                << std::endl;
+        }
+
         std::cout
             << "Building index..."
             << std::endl;
+
+        // --------------------------------------------------
+        // Clear old index before rebuilding
+        // --------------------------------------------------
+
+        index.clear();
 
         // --------------------------------------------------
         // Load documents
@@ -65,7 +126,10 @@ int main() {
         // Build index
         // --------------------------------------------------
 
-        for (const auto& document : documents) {
+        for (
+            const auto& document :
+            documents
+        ) {
 
             std::string content =
                 loader.readDocument(document);
@@ -82,20 +146,27 @@ int main() {
                 const std::string& token =
                     tokens[position];
 
-                // Add term + document + position
                 index.add(
                     token,
                     document.id,
                     static_cast<int>(position)
                 );
 
-                // Add term to autocomplete Trie
                 trie.insert(token);
             }
         }
 
         // --------------------------------------------------
-        // Save newly built index
+        // Create metadata
+        // --------------------------------------------------
+
+        metadata =
+            IndexValidator::createMetadata(
+                "data"
+            );
+
+        // --------------------------------------------------
+        // Save index
         // --------------------------------------------------
 
         bool saved =
@@ -114,6 +185,29 @@ int main() {
 
             std::cerr
                 << "Warning: Failed to save index."
+                << std::endl;
+        }
+
+        // --------------------------------------------------
+        // Save metadata
+        // --------------------------------------------------
+
+        bool metadataSaved =
+            IndexPersistence::saveMetadata(
+                metadata,
+                metadataFile
+            );
+
+        if (metadataSaved) {
+
+            std::cout
+                << "Index metadata saved successfully."
+                << std::endl;
+
+        } else {
+
+            std::cerr
+                << "Warning: Failed to save index metadata."
                 << std::endl;
         }
     }
@@ -151,6 +245,7 @@ int main() {
         std::cout << "Search> ";
 
         std::string query;
+
         std::getline(
             std::cin,
             query

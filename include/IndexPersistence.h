@@ -2,6 +2,7 @@
 #define INDEX_PERSISTENCE_H
 
 #include "InvertedIndex.h"
+#include "IndexMetadata.h"
 
 #include <string>
 
@@ -16,6 +17,16 @@ public:
     static bool load(
         InvertedIndex& index,
         const std::string& filename
+    );
+
+    static bool saveMetadata(
+    const IndexMetadata& metadata,
+    const std::string& filename
+    );
+
+    static bool loadMetadata(
+    IndexMetadata& metadata,
+    const std::string& filename
     );
 };
 

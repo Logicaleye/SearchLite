@@ -219,3 +219,9 @@ void InvertedIndex::replaceWith(
     positions = other.positions;
     documents = other.documents;
 }
+
+void InvertedIndex::clear() {
+    index.clear();
+    positions.clear();
+    documents.clear();
+}

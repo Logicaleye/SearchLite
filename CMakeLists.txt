@@ -18,6 +18,8 @@ add_executable(SearchLite
     src/BooleanEvaluator.cpp
     src/SearchCache.cpp
     src/IndexPersistence.cpp
+    src/IndexMetadata.cpp
+    src/IndexValidator.cpp
 )
 
 target_include_directories(SearchLite PRIVATE
@@ -185,5 +187,41 @@ add_executable(TestIndexPersistence
 )
 
 target_include_directories(TestIndexPersistence PRIVATE
+    include
+)
+
+add_executable(TestIndexMetadata
+    tests/test_index_metadata.cpp
+    src/IndexMetadata.cpp
+)
+
+target_include_directories(
+    TestIndexMetadata
+    PRIVATE
+    include
+)
+
+add_executable(TestIndexValidator
+    tests/test_index_validator.cpp
+    src/IndexMetadata.cpp
+    src/IndexValidator.cpp
+)
+
+target_include_directories(
+    TestIndexValidator
+    PRIVATE
+    include
+)
+
+add_executable(TestIndexMetadataPersistence
+    tests/test_index_metadata_persistence.cpp
+    src/IndexMetadata.cpp
+    src/IndexPersistence.cpp
+    src/InvertedIndex.cpp
+)
+
+target_include_directories(
+    TestIndexMetadataPersistence
+    PRIVATE
     include
 )

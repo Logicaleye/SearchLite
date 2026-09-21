@@ -13,5 +13,8 @@ C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestBooleanParser.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestBooleanEvaluator.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestSearchCache.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestIndexPersistence.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestIndexMetadata.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestIndexValidator.dir
+C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/TestIndexMetadataPersistence.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/as562/Desktop/Searchlite/build/CMakeFiles/ZERO_CHECK.dir

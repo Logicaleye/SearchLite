@@ -34,6 +34,12 @@
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexPersistence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexMetadata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\as562\Desktop\Searchlite\CMakeLists.txt" />

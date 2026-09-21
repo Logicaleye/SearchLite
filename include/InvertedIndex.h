@@ -83,6 +83,8 @@ public:
     const InvertedIndex& other
     );
 
+    void clear();
+
 };
 
 #endif

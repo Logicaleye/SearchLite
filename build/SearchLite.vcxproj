@@ -375,6 +375,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\BooleanEvaluator.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\SearchCache.cpp" />
     <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexPersistence.cpp" />
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexMetadata.cpp" />
+    <ClCompile Include="C:\Users\as562\Desktop\Searchlite\src\IndexValidator.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,2 +1,2 @@
-Machine learning is a branch of artificial intelligence. 
-Machine learning algorithms learn patterns from data.
+Database systems store and manage data.
+Database systems are fundamental to computer science.
